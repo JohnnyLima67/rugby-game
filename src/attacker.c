@@ -19,11 +19,26 @@
 direction_t execute_attacker_strategy(
     position_t attacker_position, Spy defender_spy) {
   // TODO: unused parameters, remove these lines later
-  UNUSED(attacker_position);
-  UNUSED(defender_spy);
+  UNUSED(attacker_spy);
+  
+  static position_t last_position;
+  
 
-  // TODO: Implement Attacker logic here
-  return (direction_t) DIR_RIGHT;
+  static bool current_dir = true;
+  
+  if (equal_positions(defender_position, last_position)){
+    current_dir = !current_dir;
+  }
+  else {
+    last_position = defender_position;
+  }
+
+  if (current_dir){
+    return (direction_t) DIR_UP;
+  }
+  else {
+    return (direction_t) DIR_DOWN;
+  }
 }
 
 /*----------------------------------------------------------------------------*/
