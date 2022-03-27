@@ -20,31 +20,24 @@
 direction_t execute_defender_strategy(
     position_t defender_position, Spy attacker_spy) {
   // TODO: unused parameters, remove these lines later
-  UNUSED(attacker_position);
-  UNUSED(defender_spy);
-  
-  static int generate = 0;
-  
-  if (generate == 0){
-    srand(getpid());
-    generate++;
-    }
+  UNUSED(defender_position);
+  UNUSED(attacker_spy);
 
-  int dir = rand() % 5;
+  static position_t last_position;
+
+  static bool current_dir = true;
   
-  if (dir == 0){
-    return (direction_t) DIR_RIGHT;
+  if (equal_positions(defender_position, last_position)){
+    current_dir = !current_dir;
   }
-  else if (dir == 1){
-    return (direction_t) DIR_UP_RIGHT;
+  else {
+    last_position = defender_position;
   }
-  else if (dir == 2){
-    return (direction_t) DIR_DOWN_RIGHT;
-  }
-  else if (dir == 3){
+
+  if (current_dir){
     return (direction_t) DIR_UP;
   }
-  else if (dir == 4){
+  else {
     return (direction_t) DIR_DOWN;
   }
 }
